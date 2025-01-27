@@ -15,6 +15,20 @@ A Node.js REST API for a peer-to-peer rental platform where users can list and r
 - npm or yarn
 - Postman (for testing)
 
+## Dependencies
+```json
+{
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
+```
+
+Install dependencies:
+```bash
+npm install express
+```
+
 ## Setup & Installation
 
 1. Clone repository:
