@@ -1,0 +1,146 @@
+{
+	"info": {
+		"name": "Rental Platform API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Items",
+			"item": [
+				{
+					"name": "Create Item",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Electric Drill\",\n    \"description\": \"Professional grade power drill\",\n    \"price\": 25\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/items",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "items"]
+						}
+					}
+				},
+				{
+					"name": "Search Items",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/api/items?search=drill&minPrice=20&maxPrice=30",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "items"],
+							"query": [
+								{
+									"key": "search",
+									"value": "drill"
+								},
+								{
+									"key": "minPrice",
+									"value": "20"
+								},
+								{
+									"key": "maxPrice",
+									"value": "30"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Item Rental History",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/api/items/:id/history",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "items", ":id", "history"],
+							"variable": [
+								{
+									"key": "id",
+									"value": "{{itemId}}"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Rentals",
+			"item": [
+				{
+					"name": "Create Rental",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.environment.set(\"rentalId\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"itemId\": \"{{itemId}}\",\n    \"startDate\": \"2025-01-27\",\n    \"endDate\": \"2025-01-29\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/rentals",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "rentals"]
+						}
+					}
+				},
+				{
+					"name": "Return Item",
+					"request": {
+						"method": "POST",
+						"url": {
+							"raw": "{{baseUrl}}/api/rentals/{{rentalId}}/return",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "rentals", "{{rentalId}}", "return"]
+						}
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Auto-set today's date if needed",
+					"if (!pm.environment.get('today')) {",
+					"    const today = new Date().toISOString().split('T')[0];",
+					"    pm.environment.set('today', today);",
+					"}"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000"
+		}
+	]
+}
