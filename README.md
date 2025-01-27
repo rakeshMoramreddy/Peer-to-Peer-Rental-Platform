@@ -2,6 +2,13 @@
 
 A Node.js REST API for a peer-to-peer rental platform where users can list and rent items.
 
+## Author
+- **Name:** Rakesh Reddy Moramreddy
+- **Email:** rakeshmmr@gmail.com
+
+## Resume
+[View My Full Resume](https://drive.google.com/file/d/1RvJlu5wLOIeuUrxJA48CEZBmxJVtWixp/view?usp=sharing)
+
 ## Features
 - List items for rent
 - Search items by name and price range
